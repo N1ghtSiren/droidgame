@@ -2,17 +2,39 @@ touches = {}
 local t = {}
 
 function touches.add(x,y)
+    if(touches.isPaused)then return end
     table.insert(t,{x,y})
 end
 
-function touches.clear()
+function touches.clear(time)
     for k,_ in pairs(t)do
         t[k] = nil
     end
+
 end
 
 function touches.get()
 	return t
+end
+
+function touches.isInArea(minx,miny,maxx,maxy)
+    local points = touches.get()
+    local x, y = nil
+
+    for _, t in ipairs(points) do
+        x, y = unpack(t)
+        if(x<maxx and x>minx and y>miny and y<maxy)then
+            return true
+        end
+    end
+    return false
+end
+
+function touches.pause(time)
+    touches.isPaused=true
+    Timer.after(time,function()
+        touches.isPaused=false
+    end)
 end
 
 --main function
@@ -73,7 +95,7 @@ function love.run()
 			love.graphics.origin()
 			love.graphics.clear(love.graphics.getBackgroundColor())
  
-			if love.draw then love.draw() end
+			if love.draw then love.draw(dt) end
  
 			love.graphics.present()
 		end
@@ -85,11 +107,11 @@ end
 
 --debug
 local function f(dt)
-    if(love.keyboard.isDown("escape"))then
-        love.event.quit()
+    if(love.keyboard.isScancodeDown("escape"))then
+        --love.event.quit()
     end
 
-    Timer.update(dt)
+    if(Timer)then Timer.update(dt) end
 end
 addon.update.add(f,0)
 
@@ -114,3 +136,35 @@ function mathfix(n,min,max)
     end
     return n
 end
+
+function round(n)
+    return math.floor(n+0.5)
+end
+
+function isTouchInArea(minx,miny,maxx,maxy)
+    local points = touches.get()
+    local x, y = nil
+
+    for _, t in ipairs(points) do
+        x, y = unpack(t)
+        if(x<maxx and x>minx and y>miny and y<maxy)then
+            return true
+        end
+    end
+    return false
+
+end
+
+--divisor(9,2) -> 4
+function divisor(n,n2)
+    local f = math.fmod(n,n2)
+    local r = (n-f)/n2
+    return r
+end
+
+settings = {}
+
+settings.cellsY = 10
+settings.cellsX = 12
+settings.maxtaps = 0
+settings.postprocessing = false
