@@ -450,6 +450,19 @@ function stone.create(groupID,x,y)
         addon.draw.add(obj.ondraw2,2)
     end
 
+    function obj.hide()
+        obj.bonus = 0
+        obj.nextbonus = 0
+        obj.perform(false)
+        addon.draw.remove(obj.ondraw2,2)
+        addon.draw.remove(obj.ondraw2,3)
+    end
+
+    function obj.show()
+        obj.perform(true)
+        obj.respawn()
+    end
+
     function obj.respawn()
         obj.color = math.random(1,4)
         obj.state = "birth"
@@ -468,7 +481,9 @@ function stone.create(groupID,x,y)
     end
 
     function obj.ondestroy()
-
+        obj.perform(false)
+        addon.draw.remove(obj.ondraw2,2)
+        addon.draw.remove(obj.ondraw2,3)
     end
     
     return obj

@@ -28,6 +28,7 @@ require("menu/bg")
 require("menu/menu")
 require("menu/optionsmenu")
 require("menu/startmenu")
+require("menu/records")
 
 require("game/grid")
 require("game/stone")
@@ -35,10 +36,27 @@ require("game/algorithms")
 require("game/bonus")
 require("game/ui")
 
+
+if(loadSettings()==false)then
+    defaultSettings()
+    saveSettings()
+end
+
+if(loadRecords()==false)then
+    defaultRecords()
+    saveRecords()
+end
+
+BGM = love.audio.newSource("sounds/bgm.flac","stream")
+BGM:play()
+BGM:setLooping(true)
+BGM:setVolume(settings.musicvolume)
+
 MainMenu = menu_main.create(1)
 OptionsMenu = menu_options.create(1)
 StartMenu = menu_startgame.create(1)
 Grid = grid.create(1)
+Grid.perform(false)
 UI = ui.create(4)
 
 MainMenu.perform(true)

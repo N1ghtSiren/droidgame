@@ -162,9 +162,3 @@ function divisor(n,n2)
     return r
 end
 
-settings = {}
-
-settings.cellsY = 10
-settings.cellsX = 12
-settings.maxtaps = 0
-settings.postprocessing = false

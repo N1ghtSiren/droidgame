@@ -14,14 +14,6 @@ function grid.create(groupID)
         setColor(0,0,0,0.7)
         rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
 
-        setColor(0.35,0.35,0.35,1)
-        for x = 0, #obj.cells do
-
-		    for y = 0, #obj.cells[x] do
-                rectangle("line", x*size, y*size, size, size)
-            end
-
-        end
     end
 
     function obj.onupdate(dt)
@@ -51,18 +43,37 @@ function grid.create(groupID)
     end
 
     function obj.oncreate()
-        obj.cells = {}
+        
+    end
+
+    function obj.show()
         for x = 0, settings.cellsX-1 do
-            obj.cells[x] = {}
-            for y = 0, settings.cellsX-1 do
-                obj.cells[x][y] = stone.create(groupID,x,y)
-                obj.cells[x][y].perform(true)
+            for y = 0, settings.cellsY-1 do
+                Grid.cells[x][y].show()
+            end
+        end
+    end
+
+    function obj.hide()
+        for x = 0, settings.cellsX-1 do
+            for y = 0, settings.cellsY-1 do
+                Grid.cells[x][y].hide()
             end
         end
     end
 
     function obj.ondestroy()
 
+    end
+    
+    obj.cells = {}
+    for x = 0, settings.cellsX-1 do
+        obj.cells[x] = {}
+        for y = 0, settings.cellsX-1 do
+            obj.cells[x][y] = stone.create(groupID,x,y)
+            obj.cells[x][y].hide()
+            --obj.cells[x][y].show()
+        end
     end
     
     return obj

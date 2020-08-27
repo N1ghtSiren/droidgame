@@ -1,4 +1,5 @@
 function getSameColorNearby(obj)
+    if(obj==nil)then print("error1");return end
     if(obj.state=="fading" or obj.state=="fading2" or obj.state=="birth")then return end
 
     --get all nearby cells with same color, within 1 cell up/down/left/rigt
