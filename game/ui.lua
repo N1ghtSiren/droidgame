@@ -14,6 +14,8 @@ function ui.create(groupID)
         local setColor = love.graphics.setColor
         local rectangle = love.graphics.rectangle
 
+        local record = recordsGet(settings.cellsX,settings.cellsY,obj.taps)
+
         --mask
         setColor(0,0,0,0.7)
         rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
@@ -21,7 +23,10 @@ function ui.create(groupID)
         setColor(1,1,1,1)
         printf("GAME OVER", w*0.1, h*0.05, 999)
         printf("Score: "..obj.score, w*0.1, h*0.15, 999)
-        printf("Best : "..recordsGet(settings.cellsX,settings.cellsY,obj.taps), w*0.6, h*0.15, 999)
+        printf("Best : "..record, w*0.6, h*0.15, 999)
+        if(record<obj.score)then
+            printf("NEW RECORD!", w*0.6, h*0.25, 999)
+        end
         printf("Max Combo: "..obj.maxcombo, w*0.1, h*0.25, 999)
         printf("Field Size: "..settings.cellsX.."x"..settings.cellsY, w*0.1, h*0.35, 999)
         printf("Tap Limit: "..obj.taps, w*0.1, h*0.45, 999)
@@ -38,6 +43,22 @@ function ui.create(groupID)
         setColor(1,1,1,1)
         printf("To Main Menu",w*0.1,h*0.75,999)
         printf("Play Again",w*0.6,h*0.75,999)
+    end
+
+    local a = 0.3
+
+    function obj.ondraw2()
+
+        love.graphics.setFont(font_big)
+        local h = love.graphics.getHeight()
+        local w = love.graphics.getWidth()
+        local printf = love.graphics.printf
+
+        love.graphics.setColor(1,1,1,a)
+        printf("Score: "..obj.score, w*0.02, h*0.1, 999)
+        printf("Taps: "..obj.tapsleft, w*0.02, h*0.3, 999)
+        
+        love.graphics.setFont(font_main)
     end
     
     function obj.ondraw()
@@ -79,8 +100,7 @@ function ui.create(groupID)
             miny = h*0.75
 
             if(touches.isInArea(minx, miny, minx+textwidth, miny+textheight))then
-                print("play again")
-                touches.pause(1)
+                touches.pause(2)
                 recordsUpdate(settings.cellsX,settings.cellsY,obj.taps,obj.score)
                 saveRecords()
                 Grid.hide()
@@ -197,12 +217,6 @@ function ui.create(groupID)
 
         --handle taps
         obj.tapsleft = obj.tapsleft - 1
-
-        --create tap text every 50
-        if(obj.tapsleft%50==0 and obj.tapsleft~=0 or obj.tapsleft==10)then
-            local r,g,b,a = 0.9,0.9,0.9,4
-            obj.textadd("Taps Left: "..obj.tapsleft.."; Score: "..obj.score,{r,g,b,a},cellsize*1,cellsize*0)
-        end
     end
 
     function obj.bonuscalc(result,x,y)
@@ -235,17 +249,22 @@ function ui.create(groupID)
         obj.lastscore = 0
         obj.score = 0
         addon.draw.remove(obj.ongameover,4)
+        addon.draw.remove(obj.ondraw2,1)
 
+        addon.draw.add(obj.ondraw2,1)
         Grid.perform(true)
         Grid.show()
     end
 
     function obj.onend()
         addon.draw.remove(obj.ongameover,4)
+        addon.draw.remove(obj.ondraw2,1)
+
 
         Grid.hide()
         Grid.perform(false)
         MainMenu.perform(true)
+        
     end
 
     function obj.oncreate()

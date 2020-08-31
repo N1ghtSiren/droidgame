@@ -11,7 +11,7 @@ function grid.create(groupID)
         local rectangle = love.graphics.rectangle
 
         --mask
-        setColor(0,0,0,0.7)
+        setColor(0,0,0,0.6)
         rectangle("fill",0,0,love.graphics.getWidth(),love.graphics.getHeight())
 
     end
@@ -67,12 +67,11 @@ function grid.create(groupID)
     end
     
     obj.cells = {}
-    for x = 0, settings.cellsX-1 do
+    for x = 0, 100 do
         obj.cells[x] = {}
-        for y = 0, settings.cellsX-1 do
-            obj.cells[x][y] = stone.create(groupID,x,y)
+        for y = 0, 100 do
+            obj.cells[x][y] = stone.create(groupID+1,x,y)
             obj.cells[x][y].hide()
-            --obj.cells[x][y].show()
         end
     end
     

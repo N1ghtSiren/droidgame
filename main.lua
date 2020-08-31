@@ -47,6 +47,10 @@ if(loadRecords()==false)then
     saveRecords()
 end
 
+POP = love.audio.newSource("sounds/pop.flac","static")
+POP:setLooping(false)
+POP:setVolume(0.5)
+
 BGM = love.audio.newSource("sounds/bgm.flac","stream")
 BGM:play()
 BGM:setLooping(true)

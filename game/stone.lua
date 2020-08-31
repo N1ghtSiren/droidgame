@@ -155,6 +155,10 @@ function stone.create(groupID,x,y)
     end
 
     function obj.ontap()
+        if(settings.playpops==1)then
+            POP:stop()
+            POP:play()
+        end
         if(obj.bonus==0)then
             obj.state = "fading"
             addon.draw.remove(obj.ondraw2,3)
