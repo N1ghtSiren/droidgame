@@ -10,13 +10,17 @@ function menu_startgame.create(groupID)
         
         love.graphics.setColor(1,1,1,1)
         love.graphics.setFont(font_main)
-        printf("Short game - 200 taps", width/20, height*0.1, 999)
+        local locstr = getLocalizedString("Short game - 200 taps")
+        printf(locstr, width/20, height*0.1, 999)
         --
-        printf("Medium game - 500 taps", width/20, height*0.3, 999)
+        locstr = getLocalizedString("Medium game - 500 taps")
+        printf(locstr, width/20, height*0.3, 999)
         --
-        printf("Long game - 1000 taps", width/20, height*0.5, 999)
+        locstr = getLocalizedString("Long game - 1000 taps")
+        printf(locstr, width/20, height*0.5, 999)
         --
-        printf("Back", width/20, height*0.8, 999)
+        locstr = getLocalizedString("Back")
+        printf(locstr, width/20, height*0.8, 999)
         --
     end
 
@@ -26,7 +30,8 @@ function menu_startgame.create(groupID)
         local width = love.graphics.getWidth()
         local height = love.graphics.getHeight()
         --
-        local textwidth = font_main:getWidth("Short game - 200 taps")
+        local locstr = getLocalizedString("Short game - 200 taps")
+        local textwidth = font_main:getWidth(locstr)
         local minx = width/20
         if(touches.isInArea(minx, height*0.1, minx+textwidth, height*0.1+textheight))then
             UI.restart(200)
@@ -36,7 +41,8 @@ function menu_startgame.create(groupID)
         end
 
         --
-        textwidth = font_main:getWidth("Medium game - 500 taps")
+        locstr = getLocalizedString("Medium game - 500 taps")
+        textwidth = font_main:getWidth(locstr)
         minx = width/20
         if(touches.isInArea(minx, height*0.3, minx+textwidth, height*0.3+textheight))then
             UI.restart(500)
@@ -46,7 +52,8 @@ function menu_startgame.create(groupID)
         end
 
         --
-        textwidth = font_main:getWidth("Long game - 1000 taps")
+        locstr = getLocalizedString("Long game - 1000 taps")
+        textwidth = font_main:getWidth(locstr)
         minx = width/20
         if(touches.isInArea(minx, height*0.5, minx+textwidth, height*0.5+textheight))then
             UI.restart(1000)
@@ -56,7 +63,8 @@ function menu_startgame.create(groupID)
         end
         
         --
-        textwidth = font_main:getWidth("Back")
+        locstr = getLocalizedString("Back")
+        textwidth = font_main:getWidth(locstr)
         minx = width/20
         if(touches.isInArea(minx, height*0.5, minx+textwidth, height*0.8+textheight))then
             obj.perform(false)
@@ -64,6 +72,11 @@ function menu_startgame.create(groupID)
         end
 
         touches.clear()
+
+        if(love.keyboard.isScancodeDown("acback"))then
+            obj.perform(false)
+            MainMenu.perform(true)
+        end
     end
 
     function obj.oncreate()

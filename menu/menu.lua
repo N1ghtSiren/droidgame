@@ -11,30 +11,36 @@ function menu_main.create(groupID)
         --title
         love.graphics.setColor(1,1,1,1)
         love.graphics.setFont(font_big)
-        local textwidth = font_main:getWidth("The Game")
-        printf("The Game", width/2-textwidth/1.4, height*0.05, 999)
+        local locstr = getLocalizedString("Bubbles")
+        local textwidth = font_main:getWidth(locstr)
+        printf(locstr, width/2-textwidth/1.4, height*0.05, 999)
 
         --
         love.graphics.setFont(font_main)
-        textwidth = font_main:getWidth("Start Game")
-        printf("Start Game", width/2-textwidth/2, height*0.3, 999)
+        locstr = getLocalizedString("Start Game")
+        textwidth = font_main:getWidth(locstr)
+        printf(locstr, width/2-textwidth/2, height*0.3, 999)
 
         --
-        textwidth = font_main:getWidth("Options")
-        printf("Options", width/2-textwidth/2, height*0.5, 999)
+        locstr = getLocalizedString("Options")
+        textwidth = font_main:getWidth(locstr)
+        printf(locstr, width/2-textwidth/2, height*0.5, 999)
 
         --
-        textwidth = font_main:getWidth("Exit")
-        printf("Exit", width/2-textwidth/2, height*0.7, 999)
+        locstr = getLocalizedString("Exit")
+        textwidth = font_main:getWidth(locstr)
+        printf(locstr, width/2-textwidth/2, height*0.7, 999)
     end
 
     function obj.onupdate(dt)
+
         local textheight = font_main:getHeight()
 
         local width = love.graphics.getWidth()
         local height = love.graphics.getHeight()
         
-        local textwidth = font_main:getWidth("Start Game")
+        local locstr = getLocalizedString("Start Game")
+        local textwidth = font_main:getWidth(locstr)
         local minx = width/2-textwidth/2
         --
         if(touches.isInArea(minx, height*0.3, minx+textwidth, height*0.3+textheight))then
@@ -44,7 +50,8 @@ function menu_main.create(groupID)
             touches.pause(1)
         end
 
-        textwidth = font_main:getWidth("Options")
+        locstr = getLocalizedString("Options")
+        textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
         if(touches.isInArea(minx, height*0.5, minx+textwidth, height*0.5+textheight))then
@@ -54,7 +61,8 @@ function menu_main.create(groupID)
             touches.pause(0.5)
         end
 
-        textwidth = font_main:getWidth("Exit")
+        locstr = getLocalizedString("Exit")
+        textwidth = font_main:getWidth(locstr)
         minx = width/2-textwidth/2
         
         if(touches.isInArea(minx, height*0.7, minx+textwidth, height*0.7+textheight))then

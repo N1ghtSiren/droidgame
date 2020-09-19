@@ -59,13 +59,19 @@ function onupdate(dt)
     end
 end
 
++add things to highest level that allows to move draw functions between layers
+
++add obj.updater which will work as drawIf and updateIf logic
+
 2) improve addon lib to be able to configure draw layers easily
 e.g. 
 drawstack[(k==func)].z = 1/99999
 
 first z being drawed first
 
+
 3) add thing to not add duplicated functions and throw smth to cmd ^
 
-4)understand metatables when
+4) understand metatables when
 
+5) add check to nox emulator to not get "click is out of bounds" error

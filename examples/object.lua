@@ -5,6 +5,8 @@ function object.create(groupID)
     local obj = {}
     table.insert(objlist,obj)
 	obj.key = #objlist
+    obj.drawflag = false
+    obj.updateflag = false
     
     local function ondraw(dt)
         if(not obj.performflag)then return end
@@ -18,13 +20,21 @@ function object.create(groupID)
         
     end
 
+    local function updater(dt)
+        local drawif = addon.draw.If
+        local updateif = addon.update.If
+
+        obj.drawflag = drawif(obj.drawflag, ondraw, groupID, obj.performflag)
+        obj.updateflag = updateif(obj.updateflag, onupdate, groupID, obj.performflag)
+    end
+
     local function oncreate()
         obj.performflag = false
 
         addon.update.add(onupdate,groupID)
         addon.draw.add(ondraw,groupID)
 
-        
+
     end
 	
 	function obj.perform(flag)

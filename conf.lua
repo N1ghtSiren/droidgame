@@ -2,9 +2,10 @@ function love.conf(t)
 	t.identity = nil
 	t.version = "11.3"
 	
-	--t.window.icon = "graphics/icon.png"
+	--com.tokyoscale.bubbles
 
-	t.window.title = "The Game"
+	t.window.title = "Bubbles"
+	t.window.icon = "icon.png"
 
 	t.window.srgb = false
 	

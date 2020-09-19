@@ -17,6 +17,8 @@ function grid.create(groupID)
     end
 
     function obj.onupdate(dt)
+
+        if(UI.PAUSE==true)then return end
         local points = touches.get()
         
         local cellsize = love.graphics.getHeight()/settings.cellsY
@@ -67,13 +69,14 @@ function grid.create(groupID)
     end
     
     obj.cells = {}
-    for x = 0, 100 do
+    for x = 0, 50 do
         obj.cells[x] = {}
-        for y = 0, 100 do
+        for y = 0, 30  do
             obj.cells[x][y] = stone.create(groupID+1,x,y)
             obj.cells[x][y].hide()
         end
+        
     end
-    
+
     return obj
 end

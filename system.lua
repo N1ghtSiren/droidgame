@@ -1,9 +1,15 @@
 touches = {}
 local t = {}
 
+local w,h = love.graphics.getWidth(),love.graphics.getHeight()
+
 function touches.add(x,y)
     if(touches.isPaused)then return end
-    table.insert(t,{x,y})
+
+    if(x<w and x>0 and y>0 and y<h)then
+        table.insert(t,{x,y})
+    end
+    
 end
 
 function touches.clear(time)
@@ -81,9 +87,13 @@ function love.run()
 
         --skip update and draw to save energy
         --limit to 32 per second
+        --if app not focused, dt goes very high and needs to be lmited
         ddt = ddt + dt
         if(ddt>0.03125)then
             ddt = 0
+            if(dt>0.03125)then
+                dt = 0.03125
+            end
         else
             goto next
         end
@@ -161,4 +171,14 @@ function divisor(n,n2)
     local r = (n-f)/n2
     return r
 end
+--lazy ifs
+local case_var = 0
+function setupCase(var)
+    case_var = var
+end
 
+function case(equalTo,varToReturn)
+    if(case_var==equalTo)then
+        return varToReturn
+    end
+end

@@ -7,10 +7,14 @@ function stone.create(groupID,x,y)
     obj.bonus = 0
 
     function obj.ondraw2()
+        if(not obj.perform)then return end
         if(obj.bonus==0)then return end
         local cellsize = love.graphics.getHeight()/settings.cellsY
         local radius = cellsize*0.4
         local center = cellsize*0.5
+
+        local setColor = love.graphics.setColor
+        local circle = love.graphics.circle
 
         --parusa parusa
         --stroim korabl rabotyagi
@@ -18,107 +22,107 @@ function stone.create(groupID,x,y)
         if(obj.bonus==1)then
             if(obj.state=="birth")then
                 local r,g,b,a = unpack(rgba[obj.color])
-                love.graphics.setColor(r,g,b,obj.statealpha)
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(r,g,b,obj.statealpha)
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
                 --bonus
-                love.graphics.setColor(brgba[obj.bonus])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize*0.4)
+                setColor(brgba[obj.bonus])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize*0.4)
             elseif(obj.state=="alive")then
                 --original
-                love.graphics.setColor(rgba[obj.color])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
+                setColor(rgba[obj.color])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
                 --bonus
-                love.graphics.setColor(brgba[obj.bonus])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(brgba[obj.bonus])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             elseif(obj.state=="fading")then
                 --original
-                love.graphics.setColor(rgba[obj.color])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
+                setColor(rgba[obj.color])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
                 --mask
-                love.graphics.setColor(0,0,0)
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(0,0,0)
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             elseif(obj.state=="fading2")then
                 --mask disappearing
-                love.graphics.setColor(0,0,0,obj.statealpha)
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(0,0,0,obj.statealpha)
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             end
         elseif(obj.bonus==2)then
             if(obj.state=="birth")then
                 local r,g,b,a = unpack(rgba[obj.color])
-                love.graphics.setColor(r,g,b,obj.statealpha)
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(r,g,b,obj.statealpha)
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
                 --bonus
-                love.graphics.setColor(brgba[obj.bonus])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize*0.5)
+                setColor(brgba[obj.bonus])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize*0.5)
             elseif(obj.state=="alive")then
                 --original
-                love.graphics.setColor(rgba[obj.color])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
+                setColor(rgba[obj.color])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
                 --bonus
-                love.graphics.setColor(brgba[obj.bonus])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(brgba[obj.bonus])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             elseif(obj.state=="fading")then
                 --original
-                love.graphics.setColor(rgba[obj.color])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
+                setColor(rgba[obj.color])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
                 --mask
-                love.graphics.setColor(0,0,0)
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(0,0,0)
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             elseif(obj.state=="fading2")then
                 --mask disappearing
-                love.graphics.setColor(0,0,0,obj.statealpha)
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(0,0,0,obj.statealpha)
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             end
         elseif(obj.bonus==3)then
             if(obj.state=="birth")then
                 --original
                 local r,g,b,a = unpack(rgba[obj.color])
-                love.graphics.setColor(r,g,b,a)
-                love.graphics.circle("line", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(r,g,b,a)
+                circle("line", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             elseif(obj.state=="alive")then
                 --original
-                love.graphics.setColor(rgba[obj.color])
-                love.graphics.circle("line", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize+5)
+                setColor(rgba[obj.color])
+                circle("line", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize+5)
             elseif(obj.state=="fading")then
                 --original
-                love.graphics.setColor(rgba[obj.color])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
+                setColor(rgba[obj.color])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
                 --mask
-                love.graphics.setColor(0,0,0)
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(0,0,0)
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             elseif(obj.state=="fading2")then
-                love.graphics.setColor(0,0,0,obj.statealpha)
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(0,0,0,obj.statealpha)
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             end
         elseif(obj.bonus==4)then
             if(obj.state=="birth")then
                 local r,g,b,a = unpack(rgba[obj.color])
                 local rw, rh = radius*1.2, radius*0.5
                 local rx, ry = (cellsize*obj.curx+center-rw/2) ,(cellsize*obj.cury+center-rh/2)
-                love.graphics.setColor(r,g,b,obj.statealpha)
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+                setColor(r,g,b,obj.statealpha)
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
                 --bonus
-                love.graphics.setColor(brgba[obj.bonus])
+                setColor(brgba[obj.bonus])
                 love.graphics.rectangle("fill", rx, ry, rw*obj.statesize, rh)
             elseif(obj.state=="alive")then
                 --original
                 local rw, rh = radius*1.2, radius*0.5
                 local rx, ry = (cellsize*obj.curx+center-rw/2) ,(cellsize*obj.cury+center-rh/2)
-                love.graphics.setColor(rgba[obj.color])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
+                setColor(rgba[obj.color])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
                 --bonus
-                love.graphics.setColor(brgba[obj.bonus])
+                setColor(brgba[obj.bonus])
                 love.graphics.rectangle("fill", rx+(rw*obj.statesize)/2, ry, rw*obj.statesize, rh)
             elseif(obj.state=="fading")then
                 --original
-                love.graphics.setColor(rgba[obj.color])
-                love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
+                setColor(rgba[obj.color])
+                circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
                 --mask
-                love.graphics.setColor(0,0,0)
+                setColor(0,0,0)
                 love.graphics.rectangle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             elseif(obj.state=="fading2")then
                 --mask disappearing
-                love.graphics.setColor(0,0,0,obj.statealpha)
+                setColor(0,0,0,obj.statealpha)
                 love.graphics.rectangle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
             end
         end
@@ -130,26 +134,29 @@ function stone.create(groupID,x,y)
         local radius = cellsize*0.4
         local center = cellsize*0.5
 
+        local setColor = love.graphics.setColor
+        local circle = love.graphics.circle
+
         
 
         if(obj.state=="birth")then
             local r,g,b,a = unpack(rgba[obj.color])
-            love.graphics.setColor(r,g,b,obj.statealpha)
-            love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+            setColor(r,g,b,obj.statealpha)
+            circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
         elseif(obj.state=="alive")then
-            love.graphics.setColor(rgba[obj.color])
-            love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
+            setColor(rgba[obj.color])
+            circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
         elseif(obj.state=="fading")then
             --original
-            love.graphics.setColor(rgba[obj.color])
-            love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
+            setColor(rgba[obj.color])
+            circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, radius)
             --mask
-            love.graphics.setColor(0,0,0)
-            love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+            setColor(0,0,0)
+            circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
         elseif(obj.state=="fading2")then
             --mask disappearing
-            love.graphics.setColor(0,0,0,obj.statealpha)
-            love.graphics.circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
+            setColor(0,0,0,obj.statealpha)
+            circle("fill", cellsize*obj.curx+center, cellsize*obj.cury+center, obj.statesize)
         end
 
     end
